@@ -18,6 +18,6 @@ public class UserControler {
 
     @GetMapping
     public List<User> listarUsuarios() {
-        return userService.listar();
+        return userService.list();
     }
 }

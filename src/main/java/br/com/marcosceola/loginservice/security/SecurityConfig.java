@@ -3,6 +3,7 @@ package br.com.marcosceola.loginservice.security;
 import br.com.marcosceola.loginservice.filter.TokenAuthenticationFilter;
 import br.com.marcosceola.loginservice.service.AuthenticationService;
 import br.com.marcosceola.loginservice.service.TokenService;
+import br.com.marcosceola.loginservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,16 +28,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private TokenService tokenService;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-            .antMatchers(HttpMethod.GET, "/users").permitAll()
+            .antMatchers(HttpMethod.GET, "/users").authenticated()
             .antMatchers(HttpMethod.POST, "/auth").permitAll()
             .anyRequest().authenticated()
             .and().csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and().addFilterBefore(new TokenAuthenticationFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
+            .and().addFilterBefore(new TokenAuthenticationFilter(tokenService, userService), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

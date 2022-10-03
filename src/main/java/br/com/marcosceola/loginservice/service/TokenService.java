@@ -42,4 +42,12 @@ public class TokenService {
             return false;
         }
     }
+
+    public Long getUserId(String token) {
+        return Long.parseLong(Jwts.parser()
+            .setSigningKey(secret)
+            .parseClaimsJws(token)
+            .getBody()
+            .getSubject());
+    }
 }

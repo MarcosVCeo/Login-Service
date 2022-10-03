@@ -14,7 +14,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<User> listar() {
+    public List<User> list() {
         var users = userRepository.findAll();
 
         if (users.isEmpty()) {
@@ -22,5 +22,11 @@ public class UserService {
         }
 
         return users;
+    }
+
+    public User find(Long id) {
+        return userRepository
+            .findById(id)
+            .orElseThrow(() -> new NoSuchElementException("Usuario não encontrado"));
     }
 }
