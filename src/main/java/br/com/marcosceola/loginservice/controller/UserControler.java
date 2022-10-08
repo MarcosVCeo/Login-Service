@@ -18,7 +18,7 @@ public class UserControler {
     @Autowired
     private UserService userService;
 
-    @PreAuthorize("hasAnyAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     @GetMapping
     public List<User> listUsers() {
         return userService.list();
