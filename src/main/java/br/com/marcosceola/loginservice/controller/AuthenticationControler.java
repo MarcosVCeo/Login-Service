@@ -1,4 +1,4 @@
-package br.com.marcosceola.loginservice.controler;
+package br.com.marcosceola.loginservice.controller;
 
 import br.com.marcosceola.loginservice.dto.LoginForm;
 import br.com.marcosceola.loginservice.dto.TokenDTO;
@@ -16,7 +16,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("auth")
-public class AuthenticationControle {
+public class AuthenticationControler {
 
     @Autowired
     private AuthenticationManager authenticationManager;
